@@ -1,0 +1,9 @@
+# Experimental Directories, Data, Software
+exps/
+mosesdecoder/
+dicts/
+data/
+vecmap-fork/
+
+# Logging
+.history*
