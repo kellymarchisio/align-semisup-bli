@@ -15,12 +15,10 @@ mapping and evaluation can be sped up with a GPU by using the --cuda flag.
 Publications
 --------
 Please cite our MT Summit paper if using this software for your research:
-
+```
 @inproceedings{v-marchisio-etal-2021-alignment,
     title = "An Alignment-Based Approach to Semi-Supervised Bilingual Lexicon Induction with Small Parallel Corpora",
-    author = "V Marchisio, Kelly  and
-      Koehn, Philipp  and
-      Xiong, Conghao",
+    author = "V Marchisio, Kelly and Koehn, Philipp and Xiong, Conghao",
     booktitle = "Proceedings of the 18th Biennial Machine Translation Summit (Volume 1: Research Track)",
     month = aug,
     year = "2021",
@@ -29,6 +27,7 @@ Please cite our MT Summit paper if using this software for your research:
     url = "https://aclanthology.org/2021.mtsummit-research.24",
     pages = "293--304",
 }
+```
 
 Errata
 -------
