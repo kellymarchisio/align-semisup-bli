@@ -4,7 +4,7 @@
 ### Environment setting.
 ###############################################################################
 
-export DIR=`pwd`
+export DIR="$(dirname "$(realpath "$0")")"
 export LC_ALL=en_US.UTF-8
 export VECMAP=$DIR/vecmap-fork
 export SCRIPTS=$DIR/scripts
