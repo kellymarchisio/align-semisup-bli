@@ -28,6 +28,7 @@ MIN_IBM_INPUT_PROB=0.1
 MIN_IBM_OUTPUT_PROB=0.1
 MIN_COUNT=2
 TOPK_OUT_VECMAP=1
+MIN_N_FOR_SUP=1000
 IBM_N=3000
 VECMAP_N=10000
 
@@ -49,9 +50,16 @@ cat $OUTDIR/0/align_out_all | sed 's/ ||_|| /\t/g' | sort  -k3r | \
 # Map embeddings given seeds from IBM 2 and induce/process phrasetable.
 SRC_EMBS_OUT=$OUTDIR/0/src.out.txt
 TRG_EMBS_OUT=$OUTDIR/0/trg.out.txt
-python3 $VECMAP/map_embeddings.py $SRC_EMBS $TRG_EMBS \
-	$SRC_EMBS_OUT $TRG_EMBS_OUT --max_embs 200000 \
-	--sep "||_||" -v --supervised $OUTDIR/0/align_out_all
+align_len=`echo \`wc align_out_all\` | cut -f1 -d' '`
+if [ $align_len -lt $MIN_N_FOR_SUP ]; then
+    python3 $VECMAP/map_embeddings.py $SRC_EMBS $TRG_EMBS \
+    	$SRC_EMBS_OUT $TRG_EMBS_OUT --max_embs 200000 \
+    	--sep "||_||" -v --semi_supervised $OUTDIR/0/align_out_all
+else
+    python3 $VECMAP/map_embeddings.py $SRC_EMBS $TRG_EMBS \
+    	$SRC_EMBS_OUT $TRG_EMBS_OUT --max_embs 200000 \
+    	--sep "||_||" -v --supervised $OUTDIR/0/align_out_all
+fi
 python3 $SCRIPTS/induce-phrase-table.py \
 	--src $SRC_EMBS_OUT --trg $TRG_EMBS_OUT \
 	--src2trg $OUTDIR/0/src2trg.phrase-table \
