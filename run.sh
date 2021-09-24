@@ -51,11 +51,14 @@ cat $OUTDIR/0/align_out_all | sed 's/ ||_|| /\t/g' | sort  -k3r | \
 SRC_EMBS_OUT=$OUTDIR/0/src.out.txt
 TRG_EMBS_OUT=$OUTDIR/0/trg.out.txt
 align_len=`echo \`wc align_out_all\` | cut -f1 -d' '`
+echo alignment length: $align_len
 if [ $align_len -lt $MIN_N_FOR_SUP ]; then
+    echo Mapping in semi-supervised mode.
     python3 $VECMAP/map_embeddings.py $SRC_EMBS $TRG_EMBS \
     	$SRC_EMBS_OUT $TRG_EMBS_OUT --max_embs 200000 \
     	--sep "||_||" -v --semi_supervised $OUTDIR/0/align_out_all
 else
+    echo Mapping in supervised mode.
     python3 $VECMAP/map_embeddings.py $SRC_EMBS $TRG_EMBS \
     	$SRC_EMBS_OUT $TRG_EMBS_OUT --max_embs 200000 \
     	--sep "||_||" -v --supervised $OUTDIR/0/align_out_all
