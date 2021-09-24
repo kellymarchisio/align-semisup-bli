@@ -50,7 +50,7 @@ cat $OUTDIR/0/align_out_all | sed 's/ ||_|| /\t/g' | sort  -k3r | \
 # Map embeddings given seeds from IBM 2 and induce/process phrasetable.
 SRC_EMBS_OUT=$OUTDIR/0/src.out.txt
 TRG_EMBS_OUT=$OUTDIR/0/trg.out.txt
-align_len=`echo \`wc align_out_all\` | cut -f1 -d' '`
+align_len=`echo \`wc $OUTDIR/0/align_out_all\` | cut -f1 -d' '`
 echo alignment length: $align_len
 if [ $align_len -lt $MIN_N_FOR_SUP ]; then
     echo Mapping in semi-supervised mode.
