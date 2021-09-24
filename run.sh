@@ -56,12 +56,12 @@ if [ $align_len -lt $MIN_N_FOR_SUP ]; then
     echo Mapping in semi-supervised mode.
     python3 $VECMAP/map_embeddings.py $SRC_EMBS $TRG_EMBS \
     	$SRC_EMBS_OUT $TRG_EMBS_OUT --max_embs 200000 \
-    	--sep "||_||" -v --semi_supervised $OUTDIR/0/align_out_all --cuda
+    	--sep "||_||" -v --semi_supervised $OUTDIR/0/align_out_all $CUDA 
 else
     echo Mapping in supervised mode.
     python3 $VECMAP/map_embeddings.py $SRC_EMBS $TRG_EMBS \
     	$SRC_EMBS_OUT $TRG_EMBS_OUT --max_embs 200000 \
-    	--sep "||_||" -v --supervised $OUTDIR/0/align_out_all --cuda
+    	--sep "||_||" -v --supervised $OUTDIR/0/align_out_all $CUDA 
 fi
 python3 $SCRIPTS/induce-phrase-table.py \
 	--src $SRC_EMBS_OUT --trg $TRG_EMBS_OUT \
@@ -89,4 +89,4 @@ SRC_EMBS_OUT=$OUTDIR/1/src.out.txt
 TRG_EMBS_OUT=$OUTDIR/1/trg.out.txt
 python3 $VECMAP/map_embeddings.py $SRC_EMBS $TRG_EMBS \
 	$SRC_EMBS_OUT $TRG_EMBS_OUT --max_embs 200000 \
-	--sep "||_||" -v --supervised $VECMAP_INPUT_TRNS_PROBS --cuda
+	--sep "||_||" -v --supervised $VECMAP_INPUT_TRNS_PROBS $CUDA
