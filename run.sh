@@ -39,7 +39,7 @@ echo Beginning Training
 mkdir -p $OUTDIR/0
 
 # Run IBM Model 2 over input corpus.
-python $DIR/nltk_ibm.py --sents $INPUT_SENTS --min-input-prob $MIN_IBM_INPUT_PROB \
+python3 $DIR/nltk_ibm.py --sents $INPUT_SENTS --min-input-prob $MIN_IBM_INPUT_PROB \
 		--min-output-prob $MIN_IBM_OUTPUT_PROB \
 		--outfile $OUTDIR/0/align_out_all 
 # Reduce IBM output probs to top $IBM_N. 
@@ -73,7 +73,7 @@ python3 $DIR/process_phrasetable.py --corpus $INPUT_SENTS \
         --min-output-prob $MIN_IBM_INPUT_PROB --min-count 0
 
 # Discard words that occurred frequently in the corpus.
-python $DIR/shorten_probsfile.py $OUTDIR/0/phrasetable_out_all \
+python3 $DIR/shorten_probsfile.py $OUTDIR/0/phrasetable_out_all \
 	$OUTDIR/0/phrasetable_out_infrequent $INPUT_SENTS 0 $MIN_COUNT
 # Reduce Vecmap output probs to top $VECMAP_N infrequent words. 
 cat $OUTDIR/0/phrasetable_out_infrequent | sed 's/ ||_|| /\t/g' | \
