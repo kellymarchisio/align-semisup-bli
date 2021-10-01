@@ -401,7 +401,7 @@ def main():
 
             # Logging
             duration = time.time() - t
-            if args.verbose:
+            if args.verbose and it % 50 == 0:
                 print(file=sys.stderr)
                 print('ITERATION {0} ({1:.2f}s)'.format(it, duration), file=sys.stderr)
                 print('\t- Objective:        {0:9.4f}%'.format(100 * objective), file=sys.stderr)
