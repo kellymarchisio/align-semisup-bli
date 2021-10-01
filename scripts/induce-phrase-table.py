@@ -1,6 +1,6 @@
 # This script is originally from Monoses (https://github.com/artetxem/monoses/tree/master/training)
 # This work describes the method: https://www.aclweb.org/anthology/D18-1399.pdf
-# Small edits by Kelly Marchisio, November 2020.
+# Small edits by Kelly Marchisio, November 2020, Sept 2021.
 
 # Copyright (C) 2018  Mikel Artetxe <artetxem@gmail.com>
 #
@@ -144,11 +144,12 @@ def main():
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-            print('Optimizing temperature | Progress: {:.2%} | Temperature: {:.2f} | Loss: {:.2f}'
-                  .format((epoch + j/n)/args.epochs,
-                      float(np.array2string(t.detach().cpu().numpy())), 
-                      float(np.array2string(loss.detach().cpu().numpy()))),
-                  file=sys.stderr)
+            if i % 100 == 0:
+                print('Optimizing temperature | Progress: {:.2%} | Temperature: {:.2f} | Loss: {:.2f}'
+                      .format((epoch + j/n)/args.epochs,
+                          float(np.array2string(t.detach().cpu().numpy())), 
+                          float(np.array2string(loss.detach().cpu().numpy()))),
+                      file=sys.stderr)
 
     if args.src2trg is not None:
         f = open(args.src2trg, mode='w', encoding=args.encoding, errors='surrogateescape')
