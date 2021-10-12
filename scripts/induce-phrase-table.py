@@ -19,6 +19,7 @@
 
 import argparse
 import collections
+from datetime import datetime
 import numpy as np
 import sys
 import torch
@@ -144,11 +145,13 @@ def main():
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
+            print(datetime.now().strftime('%m/%d/%Y, %H:%M:%S'), flush=True)
+            print('About to optimize temperature', flush=True)
             print('Optimizing temperature | Progress: {:.2%} | Temperature: {:.2f} | Loss: {:.2f}'
                   .format((epoch + j/n)/args.epochs,
                       float(np.array2string(t.detach().cpu().numpy())), 
                       float(np.array2string(loss.detach().cpu().numpy()))),
-                  file=sys.stderr)
+                  file=sys.stdout, flush=True)
 
     if args.src2trg is not None:
         f = open(args.src2trg, mode='w', encoding=args.encoding, errors='surrogateescape')
